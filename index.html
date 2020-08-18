@@ -1,0 +1,79 @@
+<?php 
+	require_once "conexion.php";
+	require_once "metodos.php";
+ ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formulario</title>
+</head>
+<body>
+	<hr><center><h3><u>FORMULARIO</u></h3></center><hr>
+	<form action="procesos/insertar.php" method="post">
+		<center>
+			<table border="2px">
+				<tr>
+					<td><label>Nombre</label></td>
+					<td><input type="text" name="txtnombre"></td>
+				</tr>
+				<tr>
+					<td><label>Apellido</label></td>
+					<td><input type="text" name="txtapellido"></td>
+				</tr>
+				<tr>
+					<td><label>Telefono</label></td>
+					<td><input type="text" name="txttelefono"></td>
+				</tr>
+				<tr>
+					<td><label>Correo</label></td>
+					<td><input type="text" name="txtcorreo"></td>
+				</tr>
+				<tr>
+					<td><button>Agregar</button></td>
+				</tr>
+			</table>
+		</center>
+	</form>
+
+	<br><br>
+
+	<hr><center><h3><u>DATOS</u></h3></center><hr>
+	<center>
+		<table style="border-collapse: collapse;" border="2px">
+			<tr>
+				<td>Nombre</td>
+				<td>Apellido</td>
+				<td>Telefono</td>
+				<td>Correo</td>
+				<td>Actualizar</td>
+				<td>Eliminar</td>
+			</tr>
+	</center>
+
+	<?php 
+		$obj= new metodos();
+		$sql="SELECT id,nombre,apellido,telefono,correo from t_persona";
+		$datos=$obj->mostrarDatos($sql);
+
+		foreach ($datos as $key ) {
+ 	?>
+	<tr>
+		<td><?php echo $key['nombre']; ?></td>
+		<td><?php echo $key['apellido']; ?></td>
+		<td><?php echo $key['telefono']; ?></td>
+		<td><?php echo $key['correo']; ?></td>
+		<td>
+			<a href="editar.php?id=<?php echo $key['id'] ?>">Editar</a>
+		</td>
+		<td>
+			<a href="procesos/eliminar.php?id=<?php echo $key['id'] ?>">Eliminar</a>
+		</td>
+	</tr>
+
+	<?php 
+		}
+ 	?>
+	</table>
+</body>
+</html>
